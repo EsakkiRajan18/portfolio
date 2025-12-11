@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -11,308 +11,123 @@
 
   <style>
     :root{
-      --accent:#00eaff;
-      --bg-dark-1:#0a0a0a;
-      --bg-dark-2:#121212;
-      --card-dark:#111;
-      --muted:#cfcfcf;
-      --glass: rgba(255,255,255,0.04);
-      --radius:16px;
-      --transition: 300ms cubic-bezier(.2,.9,.2,1);
+      --accent: #00eaff;
+      --accent-2: #7d00ff;
+      --bg-dark-1: #0a0a0a;
+      --bg-dark-2: #121212;
+      --card-dark: #111;
+      --muted: #cfcfcf;
+      --glass: rgba(255,255,255,0.03);
+      --radius: 14px;
+      --ease: cubic-bezier(.2,.9,.2,1);
+      --transition-fast: 220ms var(--ease);
+      --transition-med: 520ms var(--ease);
+      --max-content-width: 1100px;
     }
 
+    /* reset & base */
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      margin:0;
-      line-height:1.45;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                  color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100%;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#fff;background:linear-gradient(135deg,var(--bg-dark-1),var(--bg-dark-2));-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.45;transition:background var(--transition-med),color var(--transition-med)}
+    a{color:inherit}
+    img{max-width:100%;display:block;height:auto}
 
-    /* Smooth scroll behavior */
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
-
-    /* THEMES */
-    body.dark{
-      background: linear-gradient(135deg,var(--bg-dark-1),var(--bg-dark-2));
-      color:#fff;
-    }
-    body.light{
-      background: #f7f8fb;
-      color: #0b1220;
-    }
-
+    /* layout */
     header{
-      position:fixed;left:0;right:0;top:0;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:18px 6%;gap:16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border-bottom:1px solid rgba(255,255,255,0.03);
-      z-index:1200;
-      backdrop-filter: blur(8px);
+      position:fixed;inset:0 0 auto 0;display:flex;align-items:center;justify-content:space-between;padding:14px 6%;gap:12px;z-index:1200;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(8px)
     }
-    body.light header{
-      background: rgba(255,255,255,0.6);
-      border-bottom:1px solid rgba(0,0,0,0.06);
-    }
+    .container{max-width:var(--max-content-width);margin:0 auto;padding:0 6%}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand h1{margin:0;font-size:18px;color:var(--accent);letter-spacing:1px}
+    nav{display:flex;gap:16px;align-items:center}
+    nav a{font-weight:600;text-decoration:none;opacity:.95;padding:8px;border-radius:10px;transition:transform var(--transition-fast),color var(--transition-fast)}
+    nav a:focus{outline:3px solid rgba(0,234,255,0.12);outline-offset:3px}
+    nav a:hover{color:var(--accent);transform:translateY(-3px)}
 
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand h1{font-size:20px;margin:0;color:var(--accent);letter-spacing:1px}
-    nav{display:flex;align-items:center;gap:18px}
-    nav a{
-      color:inherit;
-      text-decoration:none;
-      font-weight:600;
-      opacity:.9;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-    }
-    nav a:hover{color:var(--accent);transform:translateY(-2px)}
-    
-    /* Underline effect for navigation */
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--accent);
-      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    nav a:hover::after {
-      width: 100%;
-    }
-    
-    .controls{display:flex;gap:12px;align-items:center}
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:700;background:transparent;border:none;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#001;box-shadow:0 12px 34px rgba(0,234,255,0.08)}
+    .btn-outline{border:1px solid rgba(255,255,255,0.04);color:inherit}
 
-    /* HERO */
-    .hero{
-      min-height:92vh;
-      padding:120px 6% 80px 6%;
-      display:flex;align-items:center;gap:40px;
-    }
-    .hero-left{flex:1;max-width:760px}
-    .subtitle{color:var(--accent);font-weight:700;letter-spacing:1px;margin-bottom:12px}
-    .hero-left h2{font-size:48px;margin:6px 0 18px;line-height:1.02}
-    .hero-left p{color:var(--muted);font-size:18px;max-width:70%}
-    .cta-row{margin-top:22px;display:flex;gap:14px;align-items:center}
-    .btn{
-      display:inline-block;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:700;
-      transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .btn-primary{background:var(--accent);color:#001;box-shadow:0 8px 26px rgba(0,234,255,0.12)}
-    .btn-outline{border:1px solid rgba(255,255,255,0.06);color:inherit;background:transparent}
-    .btn:hover{transform:translateY(-4px)}
+    main{padding-top:86px}
+
+    /* hero */
+    .hero{display:flex;gap:36px;align-items:center;min-height:86vh;padding:48px 0}
+    .hero-left{flex:1;max-width:740px}
+    .subtitle{color:var(--accent);font-weight:700;letter-spacing:1px;margin-bottom:10px}
+    h2{font-size:48px;margin:6px 0 14px;line-height:1.01}
+    p.lead{color:var(--muted);font-size:18px;max-width:72%}
+    .cta-row{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 
     .hero-right{width:360px;flex-shrink:0;display:flex;justify-content:center}
-    .profile{
-      width:360px;height:360px;border-radius:50%;
-      border:6px solid var(--accent);
-      box-shadow:0 20px 60px rgba(0,0,0,0.5);
-      overflow:hidden;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.45));
-      transform:translateY(0);
-      animation:pop .9s cubic-bezier(.2,.9,.2,1);
-    }
-    .profile img{
-      width:100%;height:100%;object-fit:cover;display:block;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .profile:hover img {
-      transform: scale(1.05);
-    }
+    .profile{width:360px;height:360px;border-radius:50%;border:6px solid var(--accent);overflow:hidden;background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.45));display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .profile img{width:100%;height:100%;object-fit:cover}
 
-    @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+    /* sections */
+    section{padding:64px 0;opacity:1;transform:none;transition:opacity var(--transition-med),transform var(--transition-med)}
+    .title{font-size:20px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:18px}
+    .grid{display:grid;gap:18px}
+    .skills-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+    .skill-card{padding:18px;border-radius:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);text-align:center;transition:transform var(--transition-fast),box-shadow var(--transition-fast)}
+    .skill-card i{font-size:30px;color:var(--accent);margin-bottom:8px;display:block}
 
-    /* SECTION common */
-    section{
-      padding:80px 6%;
-      animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .title{font-size:28px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:22px}
-    .grid{display:grid;gap:20px}
+    .projects-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .project-card{padding:16px;border-radius:12px;background:var(--card-dark);border:1px solid rgba(255,255,255,0.025);transition:transform var(--transition-fast),box-shadow var(--transition-fast)}
+    .project-card h3{margin:0 0 10px;font-size:16px;color:var(--accent)}
+    .project-card ul{margin:0 0 10px 18px;color:var(--muted);padding:0}
 
-    /* Skills */
-    .skills-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+    .project-detail{background:var(--card-dark);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .back-link{display:inline-block;margin-top:10px;color:var(--muted);text-decoration:none}
 
-    .skill-card{
-      padding:22px;border-radius:14px;background:var(--glass);
-      border:1px solid rgba(255,255,255,0.04);text-align:center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    
-    /* Staggered animation for skill cards */
-    .skills-grid .skill-card:nth-child(1) { animation-delay: 0.1s; }
-    .skills-grid .skill-card:nth-child(2) { animation-delay: 0.2s; }
-    .skills-grid .skill-card:nth-child(3) { animation-delay: 0.3s; }
-    .skills-grid .skill-card:nth-child(4) { animation-delay: 0.4s; }
-    .skills-grid .skill-card:nth-child(5) { animation-delay: 0.5s; }
-    .skills-grid .skill-card:nth-child(6) { animation-delay: 0.6s; }
-    
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .skill-card i{font-size:36px;color:var(--accent);margin-bottom:10px;display:inline-block}
-    .skill-card:hover{transform:translateY(-10px);border-color:var(--accent);box-shadow:0 12px 34px rgba(0,234,255,0.06)}
+    /* timeline */
+    .timeline{max-width:920px;margin:0 auto;position:relative;padding:10px 0}
+    .timeline-list{display:flex;flex-direction:column;gap:14px}
+    .timeline-item{padding:14px;border-radius:10px;background:var(--card-dark);border:1px solid rgba(255,255,255,0.02)}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:6px}
 
-    /* Projects grid */
-    .projects-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .project-card{
-      padding:18px;border-radius:14px;background:var(--card-dark);border:1px solid rgba(255,255,255,0.03);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    
-    .projects-grid .project-card:nth-child(2) { animation-delay: 0.15s; }
-    .projects-grid .project-card:nth-child(3) { animation-delay: 0.3s; }
-    
-    @keyframes slideIn {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    .project-card h3{margin:0 0 12px;font-size:18px;color:var(--accent)}
-    .project-card ul{margin:0 0 12px 18px;color:var(--muted)}
-    .project-card a.detail-btn{display:inline-block;margin-top:8px;color:var(--accent);text-decoration:none;font-weight:700}
-    .project-card:hover{transform:translateY(-8px);box-shadow:0 14px 40px rgba(0,234,255,0.06);border-color:var(--accent)}
+    /* contact/resume */
+    .contact p{color:var(--muted);margin:4px 0}
+    .resume-download{display:inline-block;padding:10px 14px;border-radius:12px;background:var(--accent);color:#001;font-weight:800;text-decoration:none}
 
-    /* Detail pages (in page) */
-    .project-detail{
-      background:var(--card-dark);padding:26px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);
-      animation: fadeInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    
-    .back-link{display:inline-block;margin-top:14px;color:var(--muted);text-decoration:none}
-    .back-link:hover{color:var(--accent)}
-
-    /* Education timeline */
-    .timeline{
-      max-width:920px;margin:0 auto;position:relative;padding:30px 0;
-    }
-    .timeline::before{
-      content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
-      width:4px;height:100%;background:linear-gradient(180deg,var(--accent),transparent);
-    }
-    .timeline-item{
-      width:48%;padding:18px;border-radius:12px;background:var(--card-dark);border:1px solid rgba(255,255,255,0.03);
-      position:relative;margin:18px 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      animation: slideInFromSide 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      opacity: 0;
-    }
-    
-    .timeline-item.left {
-      transform: translateX(-30px);
-    }
-    
-    .timeline-item.right {
-      transform: translateX(30px);
-    }
-    
-    @keyframes slideInFromSide {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    .timeline-item .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
-    .timeline-item.left{left:0}
-    .timeline-item.right{left:52%}
-    .timeline-item::after{
-      content:'';position:absolute;top:22px;width:12px;height:12px;border-radius:50%;
-      background:var(--accent);box-shadow:0 0 16px rgba(0,234,255,0.2)
-    }
-    .timeline-item.left::after{right:-6px}
-    .timeline-item.right::after{left:-6px}
-
-    /* Resume button center */
-    .resume-wrap{text-align:center;margin-top:10px}
-    .resume-download{display:inline-block;padding:12px 20px;border-radius:12px;background:var(--accent);color:#001;font-weight:800;text-decoration:none}
-
-    /* Footer */
-    footer{padding:28px 6%;text-align:center;border-top:1px solid rgba(255,255,255,0.03);margin-top:30px}
+    footer{padding:28px 0;text-align:center;border-top:1px solid rgba(255,255,255,0.03);margin-top:30px}
     footer small{color:var(--muted)}
 
-    /* Smooth theme toggle icon rotation */
-    #themeIcon {
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    #themeToggle:hover #themeIcon {
-      transform: rotate(180deg);
-    }
-    
-    /* Smooth focus states for accessibility */
-    a:focus, button:focus {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      transition: outline-offset 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    /* reveal & transition classes */
+    .reveal{opacity:0;transform:translateY(20px)}
+    .visible{opacity:1;transform:none}
+    .section-out{opacity:0;transform:translateY(12px);pointer-events:none}
 
-    /* Small screens */
+    /* responsive */
     @media (max-width:900px){
-      .hero{flex-direction:column-reverse;padding:110px 6% 40px}
-      .hero-left h2{font-size:36px}
-      .hero-left p{max-width:100%}
+      header{padding:10px 5%}
+      .hero{flex-direction:column-reverse;padding:36px 0}
+      h2{font-size:36px}
       .hero-right{width:220px}
       .profile{width:220px;height:220px}
-      .timeline::before{left:8px}
-      .timeline-item{width:100%;left:0;padding-left:36px}
-      .timeline-item.right{left:0}
-      .timeline-item::after{left:8px}
       nav{display:none}
-      header{padding:12px 5%}
     }
+
+    /* prefer-reduced-motion */
+    @media (prefers-reduced-motion:reduce){
+      :root{scroll-behavior:auto}
+      *{transition:none!important;animation:none!important}
+    }
+
+    /* light theme */
+    body.light{
+      background:#f7f8fb;color:#0b1220
+    }
+    body.light header{background:rgba(255,255,255,0.7);border-bottom:1px solid rgba(0,0,0,0.06)}
+    body.light .profile{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.85))}
   </style>
 </head>
-<body class="dark">
+<body class="dark" data-initial-theme="dark">
 
   <header role="banner" aria-label="Main header">
     <div class="brand" aria-hidden="false">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
         <circle cx="12" cy="12" r="10" stroke="url(#g)" stroke-width="2"/>
         <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00eaff"/><stop offset="1" stop-color="#7d00ff"/></linearGradient></defs>
       </svg>
@@ -335,227 +150,295 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <main>
-    <section class="hero" id="home" aria-label="Hero section">
-      <div class="hero-left">
-        <div class="subtitle">Generative AI Engineer</div>
-        <h2>Hi, I'm <span style="color:var(--accent)">Esakki Rajan</span></h2>
-        <p>I build intelligent systems and modern web experiences. I'm currently pursuing an MCA in Generative AI at Alliance University (SGPA 8.8) and actively working on ML, CV and web projects.</p>
+    <section id="home" class="reveal" aria-label="Hero section">
+      <div class="container hero" role="region" aria-labelledby="home-heading">
+        <div class="hero-left">
+          <div class="subtitle">Generative AI Engineer</div>
+          <h2 id="home-heading">Hi, I'm <span style="color:var(--accent)">Esakki Rajan</span></h2>
+          <p class="lead">I build intelligent systems and modern web experiences. I’m currently pursuing an MCA in Generative AI at Alliance University (SGPA 8.8) and actively working on ML, CV and web projects.</p>
 
-        <div class="cta-row">
-          <a href="#projects" class="btn btn-primary">See Projects</a>
-          <a href="#contact" class="btn btn-outline">Contact Me</a>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#projects">See Projects</a>
+            <a class="btn btn-outline" href="#contact">Contact Me</a>
+          </div>
         </div>
-      </div>
 
-      <div class="hero-right">
-        <div class="profile" aria-hidden="true">
-          <!-- Placeholder hero image: replace if you have a personal photo -->
-<div class="hero-img">
-  <img alt="Profile photo" src="Esakki.jpg">
-</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" aria-label="About me">
-      <div class="title">About Me</div>
-      <p style="max-width:900px;margin:0 auto;color:var(--muted)">A confident and conscientious learner with strong technical skills and creative problem-solving. I specialize in Python, ML/DL, OpenCV and front-end development (HTML/CSS/JS). I enjoy designing and building usable and performant UIs and intelligent backend systems.</p>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills" aria-label="Skills">
-      <div class="title">Skills</div>
-      <div class="grid skills-grid">
-        <div class="skill-card"><i class="bi bi-code-slash" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Python • Java • C++</div></div>
-        <div class="skill-card"><i class="bi bi-braces" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">HTML • CSS • JavaScript</div></div>
-        <div class="skill-card"><i class="bi bi-database" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">MySQL • MongoDB</div></div>
-        <div class="skill-card"><i class="bi bi-github" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Git • GitHub</div></div>
-        <div class="skill-card"><i class="bi bi-brush" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Figma • Adobe XD</div></div>
-        <div class="skill-card"><i class="bi bi-terminal" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">VS Code • Android Studio</div></div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" aria-label="Projects">
-      <div class="title">Projects</div>
-
-      <div class="grid projects-grid">
-        <article class="project-card" aria-labelledby="pythonTitle">
-          <h3 id="pythonTitle"><i class="bi bi-cpu"></i> Python Projects</h3>
-          <ul>
-            <li><strong>ASL Recognition</strong> — CNN model to classify American Sign Language gestures from images/video frames.</li>
-            <li><strong>Heart Disease Prediction</strong> — Classification pipeline using clinical metrics and feature engineering.</li>
-            <li><strong>Face Detection</strong> — OpenCV-based realtime face detection & attendance automation.</li>
-          </ul>
-          <a class="detail-btn" href="#python-details" aria-label="Open Python project details">View Details →</a>
-        </article>
-
-        <article class="project-card" aria-labelledby="htmlTitle">
-          <h3 id="htmlTitle"><i class="bi bi-layout-text-window-reverse"></i> HTML / CSS Projects</h3>
-          <ul>
-            <li><strong>Modern Portfolio Website</strong> — Responsive layout, accessible components, CSS animations.</li>
-            <li><strong>Landing Pages</strong> — Performance-focused responsive pages and forms.</li>
-          </ul>
-          <a class="detail-btn" href="#html-details" aria-label="Open HTML project details">View Details →</a>
-        </article>
-
-        <article class="project-card" aria-labelledby="jsTitle">
-          <h3 id="jsTitle"><i class="bi bi-lightning"></i> JavaScript Projects</h3>
-          <ul>
-            <li><strong>Interactive Web Components</strong> — Custom UI controls, modular JS and small state management.</li>
-            <li><strong>Form Validation & UI Logic</strong> — Client-side validation, animations and accessibility.</li>
-          </ul>
-          <a class="detail-btn" href="#js-details" aria-label="Open JS project details">View Details →</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- PROJECT DETAILS (each is a separate 'page' section) -->
-    <section id="python-details" class="project-detail" aria-label="Python project details" style="margin:0 6% 40px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
-        <div>
-          <h3 style="margin:0 0 8px;color:var(--accent)"><i class="bi bi-cpu"></i> Python & ML Projects — Details</h3>
-          <p style="color:var(--muted)">Technical summaries, used libraries, and links to code snippets / notebooks.</p>
-        </div>
-        <div>
-          <a href="#projects" class="back-link">← Back to Projects</a>
-        </div>
-      </div>
-
-      <div style="margin-top:16px;display:grid;gap:12px;">
-        <div style="padding:12px;border-radius:10px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)">
-          <strong>ASL Recognition</strong> — Dataset preprocessing, CNN (TensorFlow / Keras), data augmentation, trained to X% accuracy (you can replace X with your result). Deployed as a Flask inference endpoint for demo.
-        </div>
-        <div style="padding:12px;border-radius:10px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)">
-          <strong>Heart Disease Prediction</strong> — EDA, feature selection, ML models (Logistic Regression / RandomForest), cross-validation and ROC analysis. Saved model with joblib.
-        </div>
-        <div style="padding:12px;border-radius:10px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)">
-          <strong>Face Detection</strong> — OpenCV Haar cascade / DNN, real-time camera capture, integration to attendance CSV export.
+        <div class="hero-right" aria-hidden="true">
+          <div class="profile" role="img" aria-label="Profile photo">
+            <!-- Replace 'Esakki.jpg' with your actual image -->
+            <img alt="Profile photo" src="Esakki.jpg">
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="html-details" class="project-detail" aria-label="HTML/CSS details" style="margin:0 6% 40px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
-        <div>
-          <h3 style="margin:0 0 8px;color:var(--accent)"><i class="bi bi-layout-text-window-reverse"></i> HTML / CSS Projects — Details</h3>
-          <p style="color:var(--muted)">Responsive, accessible and modern front-end designs.</p>
-        </div>
-        <div>
-          <a href="#projects" class="back-link">← Back to Projects</a>
-        </div>
+    <section id="about" class="reveal" aria-label="About me">
+      <div class="container">
+        <div class="title">About Me</div>
+        <p style="max-width:900px;margin:0 auto;color:var(--muted)">A confident and conscientious learner with strong technical skills and creative problem-solving. I specialize in Python, ML/DL, OpenCV and front-end development (HTML/CSS/JS). I enjoy designing and building usable and performant UIs and intelligent backend systems.</p>
       </div>
-
-      <ul style="margin-top:12px;color:var(--muted)">
-        <li><strong>Modern Portfolio</strong> — Built with semantic HTML, responsive CSS grid/flexbox, accessible headings and keyboard-friendly navigation.</li>
-        <li><strong>Landing Pages</strong> — Lightweight performance-first HTML/CSS, form handling, and CSS-only interactions where possible.</li>
-      </ul>
     </section>
 
-    <section id="js-details" class="project-detail" aria-label="JavaScript details" style="margin:0 6% 40px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
-        <div>
-          <h3 style="margin:0 0 8px;color:var(--accent)"><i class="bi bi-lightning"></i> JavaScript Projects — Details</h3>
-          <p style="color:var(--muted)">Clean vanilla JS modules, small libraries and UI logic.</p>
-        </div>
-        <div>
-          <a href="#projects" class="back-link">← Back to Projects</a>
-        </div>
-      </div>
-
-      <ul style="margin-top:12px;color:var(--muted)">
-        <li><strong>Web Components</strong> — Custom elements for repeated UI patterns, encapsulated styles.</li>
-        <li><strong>Form Validation</strong> — Robust client-side validation with clear error messages and a11y considerations.</li>
-      </ul>
-    </section>
-
-    <!-- EDUCATION & TIMELINE -->
-    <section id="education" aria-label="Education timeline">
-      <div class="title">Education & Experience</div>
-
-      <div class="timeline" aria-hidden="false">
-        <div class="timeline-item left" role="article" aria-label="MCA">
-          <div class="meta">2024 — 2026</div>
-          <h4 style="margin:6px 0">MCA (Generative AI)</h4>
-          <p style="color:var(--muted)">Alliance University, Bangalore — SGPA 8.8 (Pursuing)</p>
-        </div>
-
-        <div class="timeline-item right" role="article" aria-label="BCA">
-          <div class="meta">2021 — 2024</div>
-          <h4 style="margin:6px 0">BCA</h4>
-          <p style="color:var(--muted)">Hindusthan College of Arts and Science — SGPA 7.6</p>
-        </div>
-
-        <div class="timeline-item left" role="article" aria-label="Internship">
-          <div class="meta">Nov 2022 — Jan 2023</div>
-          <h4 style="margin:6px 0">Software Development Intern</h4>
-          <p style="color:var(--muted)">Gateway Software Solutions, Coimbatore — Python development, automation scripts and collaborative mini-projects.</p>
+    <section id="skills" class="reveal" aria-label="Skills">
+      <div class="container">
+        <div class="title">Skills</div>
+        <div class="grid skills-grid" role="list">
+          <div class="skill-card" role="listitem"><i class="bi bi-code-slash" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Python • Java • C++</div></div>
+          <div class="skill-card" role="listitem"><i class="bi bi-braces" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">HTML • CSS • JavaScript</div></div>
+          <div class="skill-card" role="listitem"><i class="bi bi-database" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">MySQL • MongoDB</div></div>
+          <div class="skill-card" role="listitem"><i class="bi bi-github" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Git • GitHub</div></div>
+          <div class="skill-card" role="listitem"><i class="bi bi-brush" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Figma • Adobe XD</div></div>
+          <div class="skill-card" role="listitem"><i class="bi bi-terminal" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">VS Code • Android Studio</div></div>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT & RESUME -->
-    <section id="contact" aria-label="Contact & Resume">
-      <div class="title">Contact</div>
+    <section id="projects" class="reveal" aria-label="Projects">
+      <div class="container">
+        <div class="title">Projects</div>
 
-      <div style="max-width:760px;margin:0 auto;text-align:center;color:var(--muted);">
-        <p>📍 Bangalore, India • 📞 +91 93443 71356 • 📧 <a href="mailto:esakkirajanmadasamy@gmail.com" style="color:var(--accent)">esakkirajanmadasamy@gmail.com</a></p>
-        <p style="margin-top:6px"><a target="_blank" rel="noopener" href="https://linkedin.com/in/esakkirajan" style="color:var(--accent)">LinkedIn</a> • <a target="_blank" rel="noopener" href="https://github.com/EsakkiRajan18" style="color:var(--accent)">GitHub</a></p>
+        <div class="grid projects-grid">
+          <article class="project-card" aria-labelledby="pythonTitle">
+            <h3 id="pythonTitle"><i class="bi bi-cpu"></i> Python Projects</h3>
+            <ul>
+              <li><strong>ASL Recognition</strong> — CNN model to classify American Sign Language gestures from images/video frames.</li>
+              <li><strong>Heart Disease Prediction</strong> — Classification pipeline using clinical metrics and feature engineering.</li>
+              <li><strong>Face Detection</strong> — OpenCV-based realtime face detection & attendance automation.</li>
+            </ul>
+            <a class="detail-btn" href="#python-details" aria-label="Open Python project details">View Details →</a>
+          </article>
 
-        <div class="resume-wrap" style="margin-top:20px">
-          <!-- Use the exact uploaded filename. Place the resume file in same folder. -->
-          <a class="resume-download" id="resumeDownload" href="ESAKKI%20RAJAN%20resume.pdf" download="ESAKKI_RAJAN_Resume.pdf">Download Resume</a>
+          <article class="project-card" aria-labelledby="htmlTitle">
+            <h3 id="htmlTitle"><i class="bi bi-layout-text-window-reverse"></i> HTML / CSS Projects</h3>
+            <ul>
+              <li><strong>Modern Portfolio</strong> — Responsive layout, accessible components, CSS animations.</li>
+              <li><strong>Landing Pages</strong> — Performance-focused responsive pages and forms.</li>
+            </ul>
+            <a class="detail-btn" href="#html-details" aria-label="Open HTML project details">View Details →</a>
+          </article>
+
+          <article class="project-card" aria-labelledby="jsTitle">
+            <h3 id="jsTitle"><i class="bi bi-lightning"></i> JavaScript Projects</h3>
+            <ul>
+              <li><strong>Interactive Web Components</strong> — Custom UI controls, modular JS and small state management.</li>
+              <li><strong>Form Validation & UI Logic</strong> — Client-side validation, animations and accessibility.</li>
+            </ul>
+            <a class="detail-btn" href="#js-details" aria-label="Open JS project details">View Details →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Details -->
+    <section id="python-details" class="project-detail reveal" aria-label="Python project details">
+      <div class="container">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0 0 6px;color:var(--accent)"><i class="bi bi-cpu"></i> Python & ML Projects — Details</h3>
+            <p style="color:var(--muted)">Technical summaries, used libraries, and links to code snippets / notebooks.</p>
+          </div>
+          <div><a href="#projects" class="back-link">← Back to Projects</a></div>
+        </div>
+
+        <div style="margin-top:12px;display:grid;gap:10px">
+          <div style="padding:12px;border-radius:8px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)"><strong>ASL Recognition</strong> — Dataset preprocessing, CNN (TensorFlow / Keras), data augmentation, trained to X% accuracy (you can replace X with your result). Deployed as a Flask inference endpoint for demo.</div>
+          <div style="padding:12px;border-radius:8px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)"><strong>Heart Disease Prediction</strong> — EDA, feature selection, ML models (Logistic Regression / RandomForest), cross-validation and ROC analysis. Saved model with joblib.</div>
+          <div style="padding:12px;border-radius:8px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)"><strong>Face Detection</strong> — OpenCV Haar cascade / DNN, real-time camera capture, integration to attendance CSV export.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="html-details" class="project-detail reveal" aria-label="HTML/CSS details">
+      <div class="container">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0 0 6px;color:var(--accent)"><i class="bi bi-layout-text-window-reverse"></i> HTML / CSS Projects — Details</h3>
+            <p style="color:var(--muted)">Responsive, accessible and modern front-end designs.</p>
+          </div>
+          <div><a href="#projects" class="back-link">← Back to Projects</a></div>
+        </div>
+
+        <ul style="margin-top:12px;color:var(--muted)">
+          <li><strong>Modern Portfolio</strong> — Built with semantic HTML, responsive CSS grid/flexbox, accessible headings and keyboard-friendly navigation.</li>
+          <li><strong>Landing Pages</strong> — Lightweight performance-first HTML/CSS, form handling, and CSS-only interactions where possible.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="js-details" class="project-detail reveal" aria-label="JavaScript details">
+      <div class="container">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0 0 6px;color:var(--accent)"><i class="bi bi-lightning"></i> JavaScript Projects — Details</h3>
+            <p style="color:var(--muted)">Clean vanilla JS modules, small libraries and UI logic.</p>
+          </div>
+          <div><a href="#projects" class="back-link">← Back to Projects</a></div>
+        </div>
+
+        <ul style="margin-top:12px;color:var(--muted)">
+          <li><strong>Web Components</strong> — Custom elements for repeated UI patterns, encapsulated styles.</li>
+          <li><strong>Form Validation</strong> — Robust client-side validation with clear error messages and a11y considerations.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="education" class="reveal" aria-label="Education timeline">
+      <div class="container">
+        <div class="title">Education & Experience</div>
+
+        <div class="timeline">
+          <div class="timeline-list">
+            <article class="timeline-item" aria-label="MCA">
+              <div class="meta">2024 — 2026</div>
+              <h4 style="margin:6px 0">MCA (Generative AI)</h4>
+              <p style="color:var(--muted)">Alliance University, Bangalore — SGPA 8.8 (Pursuing)</p>
+            </article>
+
+            <article class="timeline-item" aria-label="BCA">
+              <div class="meta">2021 — 2024</div>
+              <h4 style="margin:6px 0">BCA</h4>
+              <p style="color:var(--muted)">Hindusthan College of Arts and Science — SGPA 7.6</p>
+            </article>
+
+            <article class="timeline-item" aria-label="Internship">
+              <div class="meta">Nov 2022 — Jan 2023</div>
+              <h4 style="margin:6px 0">Software Development Intern</h4>
+              <p style="color:var(--muted)">Gateway Software Solutions, Coimbatore — Python development, automation scripts and collaborative mini-projects.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal contact" aria-label="Contact & Resume">
+      <div class="container" style="text-align:center">
+        <div class="title">Contact</div>
+
+        <div style="max-width:760px;margin:0 auto;color:var(--muted)">
+          <p>📍 Bangalore, India • 📞 <a href="tel:+919344371356" style="color:var(--accent)">+91 93443 71356</a> • 📧 <a href="mailto:esakkirajanmadasamy@gmail.com" style="color:var(--accent)">esakkirajanmadasamy@gmail.com</a></p>
+          <p style="margin-top:6px"><a target="_blank" rel="noopener" href="https://linkedin.com/in/esakkirajan" style="color:var(--accent)">LinkedIn</a> • <a target="_blank" rel="noopener" href="https://github.com/EsakkiRajan18" style="color:var(--accent)">GitHub</a></p>
+
+          <div class="resume-wrap" style="margin-top:20px">
+            <a class="resume-download" id="resumeDownload" href="ESAKKI%20RAJAN%20resume.pdf" download="ESAKKI_RAJAN_Resume.pdf">Download Resume</a>
+          </div>
         </div>
       </div>
     </section>
 
     <footer role="contentinfo">
-      <small>© 2025 Esakki Rajan — Built with care</small>
+      <div class="container"><small>© 2025 Esakki Rajan — Built with care</small></div>
     </footer>
   </main>
 
-  <!-- Minimal JS for theme, interactions and resume button -->
+  <!-- Interaction scripts: theme, scroll transitions, reveal -->
   <script>
-    (function(){
+    (function () {
       const body = document.body;
       const themeToggle = document.getElementById('themeToggle');
       const themeIcon = document.getElementById('themeIcon');
       const resumeTop = document.getElementById('resumeTop');
       const resumeDownload = document.getElementById('resumeDownload');
 
-      // Initialize theme from localStorage or default to dark
+      /* Theme handling (persisted) */
       const saved = localStorage.getItem('theme');
-      if(saved==='light') body.classList.add('light'); else body.classList.add('dark');
+      if (saved === 'light') body.classList.add('light'); else body.classList.add('dark');
 
-      function updateIcon(){
-        if(body.classList.contains('light')){
-          themeIcon.className = 'bi bi-sun-fill';
-        } else {
-          themeIcon.className = 'bi bi-moon-fill';
-        }
+      function updateIcon() {
+        themeIcon.className = body.classList.contains('light') ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
       }
       updateIcon();
 
-      themeToggle.addEventListener('click', ()=>{
-        if(body.classList.contains('light')){
-          body.classList.remove('light'); body.classList.add('dark'); localStorage.setItem('theme','dark');
+      themeToggle.addEventListener('click', () => {
+        if (body.classList.contains('light')) {
+          body.classList.remove('light'); body.classList.add('dark'); localStorage.setItem('theme', 'dark');
         } else {
-          body.classList.remove('dark'); body.classList.add('light'); localStorage.setItem('theme','light');
+          body.classList.remove('dark'); body.classList.add('light'); localStorage.setItem('theme', 'light');
         }
         updateIcon();
       });
 
-      // Top resume button scrolls to contact/resume section and focuses download
-      resumeTop.addEventListener('click', ()=>{
-        document.getElementById('contact').scrollIntoView({behavior:'smooth', block:'center'});
-        setTimeout(()=> resumeDownload.focus(), 600);
+      /* Resume top button: scroll and focus download */
+      resumeTop.addEventListener('click', () => {
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // focus after scroll (delayed for smoothness)
+        setTimeout(() => resumeDownload.focus(), 650);
       });
 
-      // Simple hash watcher: when user clicks "View Details", browser jumps to that section — no extra JS necessary.
-      // Accessible keyboard navigation: ensure anchor focus outline visible (browser default).
+      /* IntersectionObserver: reveal on scroll */
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const revealTargets = document.querySelectorAll('.reveal');
+
+      if (!prefersReduced && 'IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        revealTargets.forEach(t => obs.observe(t));
+      } else {
+        // fallback: show everything immediately
+        revealTargets.forEach(t => t.classList.add('visible'));
+      }
+
+      /* Section click transitions: fade out current, scroll to target, fade in target.
+         Works for nav links, detail buttons and back links.
+      */
+      function handleNavClick(e) {
+        const link = e.currentTarget;
+        const href = link.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        // If prefers-reduced-motion, just jump
+        if (prefersReduced) {
+          return; // let browser handle default (smooth due to CSS)
+        }
+
+        e.preventDefault();
+
+        // mark all visible sections to animate out
+        const sections = document.querySelectorAll('main section');
+        sections.forEach(s => s.classList.add('section-out'));
+
+        // small delay to allow out animation, then scroll and reveal target
+        const OUT_MS = 200;
+        setTimeout(() => {
+          // remove out state on target and scroll into view
+          target.classList.remove('section-out');
+          // ensure target becomes visible (if not already)
+          target.classList.add('visible');
+
+          // scroll to target smoothly
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          // restore other sections after another short delay
+          setTimeout(() => {
+            sections.forEach(s => s.classList.remove('section-out'));
+          }, 400);
+        }, OUT_MS);
+      }
+
+      // attach listeners to internal anchors
+      const interactiveLinks = document.querySelectorAll('nav a, .detail-btn, .back-link, .cta-row a');
+      interactiveLinks.forEach(a => a.addEventListener('click', handleNavClick));
+
+      // Accessibility: allow keyboard "Enter" on buttons that are links (already anchors)
+      // No-op here; anchors handle keyboard by default.
+
+      // Make sure hash navigation on page load reveals target
+      if (location.hash) {
+        const initial = document.querySelector(location.hash);
+        if (initial) {
+          initial.classList.add('visible');
+          setTimeout(() => initial.scrollIntoView({ behavior: 'auto', block: 'start' }), 80);
+        }
+      }
     })();
   </script>
 </body>
