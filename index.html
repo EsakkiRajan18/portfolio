@@ -1,205 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Esakki Rajan | Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Esakki Rajan — Portfolio</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
+    :root{
+      --accent:#00eaff;
+      --bg-dark-1:#0a0a0a;
+      --bg-dark-2:#121212;
+      --card-dark:#111;
+      --muted:#cfcfcf;
+      --glass: rgba(255,255,255,0.04);
+      --radius:16px;
+      --transition: 300ms cubic-bezier(.2,.9,.2,1);
     }
 
-    body {
-      background: #0d0d0d;
-      color: #ffffff;
-      scroll-behavior: smooth;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      margin:0;
+      line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition: background var(--transition), color var(--transition);
     }
 
-    header {
-      width: 100%;
-      padding: 20px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      backdrop-filter: blur(10px);
-      z-index: 100;
+    /* THEMES */
+    body.dark{
+      background: linear-gradient(135deg,var(--bg-dark-1),var(--bg-dark-2));
+      color:#fff;
+    }
+    body.light{
+      background: #f7f8fb;
+      color: #0b1220;
     }
 
-    header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: #00f2ff;
+    header{
+      position:fixed;left:0;right:0;top:0;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 6%;gap:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      z-index:1200;
+      backdrop-filter: blur(8px);
+    }
+    body.light header{
+      background: rgba(255,255,255,0.6);
+      border-bottom:1px solid rgba(0,0,0,0.06);
     }
 
-    nav a {
-      margin-left: 25px;
-      text-decoration: none;
-      color: #eaeaea;
-      font-size: 16px;
-      transition: 0.3s;
-    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand h1{font-size:20px;margin:0;color:var(--accent);letter-spacing:1px}
+    nav{display:flex;align-items:center;gap:18px}
+    nav a{color:inherit;text-decoration:none;font-weight:600;opacity:.9}
+    nav a:hover{color:var(--accent);transform:translateY(-2px)}
+    .controls{display:flex;gap:12px;align-items:center}
 
-    nav a:hover {
-      color: #00f2ff;
+    /* HERO */
+    .hero{
+      min-height:92vh;
+      padding:120px 6% 80px 6%;
+      display:flex;align-items:center;gap:40px;
     }
-
-    .hero {
-      height: 100vh;
-      padding: 0 8%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .hero-left{flex:1;max-width:760px}
+    .subtitle{color:var(--accent);font-weight:700;letter-spacing:1px;margin-bottom:12px}
+    .hero-left h2{font-size:48px;margin:6px 0 18px;line-height:1.02}
+    .hero-left p{color:var(--muted);font-size:18px;max-width:70%}
+    .cta-row{margin-top:22px;display:flex;gap:14px;align-items:center}
+    .btn{
+      display:inline-block;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:700;
+      transition:all var(--transition);
     }
+    .btn-primary{background:var(--accent);color:#001;box-shadow:0 8px 26px rgba(0,234,255,0.12)}
+    .btn-outline{border:1px solid rgba(255,255,255,0.06);color:inherit;background:transparent}
+    .btn:hover{transform:translateY(-4px)}
 
-    .hero-text h2 {
-      font-size: 22px;
-      color: #00f2ff;
+    .hero-right{width:360px;flex-shrink:0;display:flex;justify-content:center}
+    .profile{
+      width:360px;height:360px;border-radius:50%;
+      border:6px solid var(--accent);
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      overflow:hidden;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.45));
+      transform:translateY(0);
+      animation:pop .9s cubic-bezier(.2,.9,.2,1);
     }
+    .profile img{width:100%;height:100%;object-fit:cover;display:block}
 
-    .hero-text h1 {
-      font-size: 55px;
-      margin: 10px 0;
+    @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+    /* SECTION common */
+    section{padding:80px 6%}
+    .title{font-size:28px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:22px}
+    .grid{display:grid;gap:20px}
+
+    /* Skills */
+    .skills-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+    .skill-card{
+      padding:22px;border-radius:14px;background:var(--glass);
+      border:1px solid rgba(255,255,255,0.04);text-align:center;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
+    .skill-card i{font-size:36px;color:var(--accent);margin-bottom:10px;display:inline-block}
+    .skill-card:hover{transform:translateY(-10px);border-color:var(--accent);box-shadow:0 12px 34px rgba(0,234,255,0.06)}
 
-    .hero-text p {
-      max-width: 480px;
-      margin-top: 15px;
-      color: #cccccc;
-      line-height: 1.6;
+    /* Projects grid */
+    .projects-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .project-card{
+      padding:18px;border-radius:14px;background:var(--card-dark);border:1px solid rgba(255,255,255,0.03);
+      transition:transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
+    .project-card h3{margin:0 0 12px;font-size:18px;color:var(--accent)}
+    .project-card ul{margin:0 0 12px 18px;color:var(--muted)}
+    .project-card a.detail-btn{display:inline-block;margin-top:8px;color:var(--accent);text-decoration:none;font-weight:700}
+    .project-card:hover{transform:translateY(-8px);box-shadow:0 14px 40px rgba(0,234,255,0.06);border-color:var(--accent)}
 
-    .section {
-      padding: 80px 8%;
+    /* Detail pages (in page) */
+    .project-detail{
+      background:var(--card-dark);padding:26px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)
     }
+    .back-link{display:inline-block;margin-top:14px;color:var(--muted);text-decoration:none}
+    .back-link:hover{color:var(--accent)}
 
-    .title {
-      font-size: 32px;
-      margin-bottom: 40px;
-      color: #00f2ff;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    /* Education timeline */
+    .timeline{
+      max-width:920px;margin:0 auto;position:relative;padding:30px 0;
     }
-
-    .skills-grid, .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+    .timeline::before{
+      content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
+      width:4px;height:100%;background:linear-gradient(180deg,var(--accent),transparent);
     }
-
-    .card {
-      padding: 25px;
-      background: #1a1a1a;
-      border-radius: 15px;
-      border: 1px solid #333;
-      transition: 0.3s;
+    .timeline-item{
+      width:48%;padding:18px;border-radius:12px;background:var(--card-dark);border:1px solid rgba(255,255,255,0.03);
+      position:relative;margin:18px 0;transition:transform var(--transition);
+      animation:slideUp .9s ease both;
     }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: #00f2ff;
+    .timeline-item .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .timeline-item.left{left:0}
+    .timeline-item.right{left:52%}
+    .timeline-item::after{
+      content:'';position:absolute;top:22px;width:12px;height:12px;border-radius:50%;
+      background:var(--accent);box-shadow:0 0 16px rgba(0,234,255,0.2)
     }
+    .timeline-item.left::after{right:-6px}
+    .timeline-item.right::after{left:-6px}
 
-    .footer {
-      text-align: center;
-      padding: 20px;
-      background: #0f0f0f;
-      margin-top: 40px;
-      border-top: 1px solid #222;
-    }
+    @keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-    .contact {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      font-size: 18px;
-    }
+    /* Resume button center */
+    .resume-wrap{text-align:center;margin-top:10px}
+    .resume-download{display:inline-block;padding:12px 20px;border-radius:12px;background:var(--accent);color:#001;font-weight:800;text-decoration:none}
 
-    a {
-      color: #00f2ff;
+    /* Footer */
+    footer{padding:28px 6%;text-align:center;border-top:1px solid rgba(255,255,255,0.03);margin-top:30px}
+    footer small{color:var(--muted)}
+
+    /* Small screens */
+    @media (max-width:900px){
+      .hero{flex-direction:column-reverse;padding:110px 6% 40px}
+      .hero-left h2{font-size:36px}
+      .hero-left p{max-width:100%}
+      .hero-right{width:220px}
+      .profile{width:220px;height:220px}
+      .timeline::before{left:8px}
+      .timeline-item{width:100%;left:0;padding-left:36px}
+      .timeline-item.right{left:0}
+      .timeline-item::after{left:8px}
+      nav{display:none}
+      header{padding:12px 5%}
     }
   </style>
 </head>
-<body>
+<body class="dark">
 
-<header>
-  <h1>EsakkiRajan</h1>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<section class="hero" id="home">
-  <div class="hero-text">
-    <h2>Aspiring Generative AI Engineer</h2>
-    <h1>Esakki Rajan</h1>
-    <p>
-      A confident and creative problem solver with strong technical skills, passionate about AI, Machine Learning, and modern software development.
-    </p>
-  </div>
-</section>
-
-<section class="section" id="about">
-  <h2 class="title">About Me</h2>
-  <p style="font-size: 18px; line-height: 1.7; max-width: 800px;">
-    I am currently pursuing MCA in Generative AI at Alliance University with an SGPA of 8.8.
-    I enjoy building intelligent systems, solving problems, and designing modern digital experiences.
-  </p>
-</section>
-
-<section class="section" id="skills">
-  <h2 class="title">Skills</h2>
-  <div class="skills-grid">
-    <div class="card">Python, Java, C++</div>
-    <div class="card">HTML, CSS, JavaScript</div>
-    <div class="card">MySQL, MongoDB</div>
-    <div class="card">Git, GitHub</div>
-    <div class="card">UI/UX (Figma, Adobe XD)</div>
-    <div class="card">VS Code, Android Studio</div>
-  </div>
-</section>
-
-<section class="section" id="projects">
-  <h2 class="title">Projects</h2>
-  <div class="projects-grid">
-    <div class="card">
-      <h3>American Sign Language Recognition</h3>
-      <p>Deep Learning model for recognizing ASL gestures from images/videos.</p>
+  <header role="banner" aria-label="Main header">
+    <div class="brand" aria-hidden="false">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" stroke="url(#g)" stroke-width="2"/>
+        <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00eaff"/><stop offset="1" stop-color="#7d00ff"/></linearGradient></defs>
+      </svg>
+      <h1>EsakkiRajan</h1>
     </div>
 
-    <div class="card">
-      <h3>Heart Disease Prediction</h3>
-      <p>Machine learning model using patient data to predict heart disease risk.</p>
+    <nav role="navigation" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="controls">
+      <button id="resumeTop" class="btn btn-outline" title="Download Resume">Resume</button>
+      <button id="themeToggle" aria-label="Toggle theme" class="btn" title="Toggle theme">
+        <i class="bi bi-moon-fill" id="themeIcon" style="font-size:18px;color:var(--accent)"></i>
+      </button>
     </div>
+  </header>
 
-    <div class="card">
-      <h3>Face Detection System</h3>
-      <p>OpenCV‑based attendance system with automatic face detection.</p>
-    </div>
-  </div>
-</section>
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="home" aria-label="Hero section">
+      <div class="hero-left">
+        <div class="subtitle">Generative AI Engineer</div>
+        <h2>Hi, I'm <span style="color:var(--accent)">Esakki Rajan</span></h2>
+        <p>I build intelligent systems and modern web experiences. I’m currently pursuing an MCA in Generative AI at Alliance University (SGPA 8.8) and actively working on ML, CV and web projects.</p>
 
-<section class="section" id="contact">
-  <h2 class="title">Contact</h2>
-  <div class="contact">
-    <p>📍 Bangalore, India</p>
-    <p>📞 +91 93443 71356</p>
-    <p>📧 esakkirajanmadasamy@gmail.com</p>
-    <p><a href="https://linkedin.com/in/esakkirajan" target="_blank">LinkedIn</a></p>
-    <p><a href="https://github.com/EsakkiRajan18" target="_blank">GitHub</a></p>
-  </div>
-</section>
+        <div class="cta-row">
+          <a href="#projects" class="btn btn-primary">See Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
 
-<footer class="footer">
-  <p>© 2025 Esakki Rajan | All Rights Reserved</p>
-</footer>
+      <div class="hero-right">
+        <div class="profile" aria-hidden="true">
+          <!-- Placeholder hero image: replace if you have a personal photo -->
+          <img alt="Profile photo" src="Esakki.jpg" />
+        </div>
+      </div>
+    </section>
 
+    <!-- ABOUT -->
+    <section id="about" aria-label="About me">
+      <div class="title">About Me</div>
+      <p style="max-width:900px;margin:0 auto;color:var(--muted)">A confident and conscientious learner with strong technical skills and creative problem-solving. I specialize in Python, ML/DL, OpenCV and front-end development (HTML/CSS/JS). I enjoy designing and building usable and performant UIs and intelligent backend systems.</p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" aria-label="Skills">
+      <div class="title">Skills</div>
+      <div class="grid skills-grid">
+        <div class="skill-card"><i class="bi bi-code-slash" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Python • Java • C++</div></div>
+        <div class="skill-card"><i class="bi bi-braces" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">HTML • CSS • JavaScript</div></div>
+        <div class="skill-card"><i class="bi bi-database" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">MySQL • MongoDB</div></div>
+        <div class="skill-card"><i class="bi bi-github" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Git • GitHub</div></div>
+        <div class="skill-card"><i class="bi bi-brush" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">Figma • Adobe XD</div></div>
+        <div class="skill-card"><i class="bi bi-terminal" aria-hidden="true"></i><div style="margin-top:8px;font-weight:700">VS Code • Android Studio</div></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" aria-label="Projects">
+      <div class="title">Projects</div>
+
+      <div class="grid projects-grid">
+        <article class="project-card" aria-labelledby="pythonTitle">
+          <h3 id="pythonTitle"><i class="bi bi-cpu"></i> Python Projects</h3>
+          <ul>
+            <li><strong>ASL Recognition</strong> — CNN model to classify American Sign Language gestures from images/video frames.</li>
+            <li><strong>Heart Disease Prediction</strong> — Classification pipeline using clinical metrics and feature engineering.</li>
+            <li><strong>Face Detection</strong> — OpenCV-based realtime face detection & attendance automation.</li>
+          </ul>
+          <a class="detail-btn" href="#python-details" aria-label="Open Python project details">View Details →</a>
+        </article>
+
+        <article class="project-card" aria-labelledby="htmlTitle">
+          <h3 id="htmlTitle"><i class="bi bi-layout-text-window-reverse"></i> HTML / CSS Projects</h3>
+          <ul>
+            <li><strong>Modern Portfolio Website</strong> — Responsive layout, accessible components, CSS animations.</li>
+            <li><strong>Landing Pages</strong> — Performance-focused responsive pages and forms.</li>
+          </ul>
+          <a class="detail-btn" href="#html-details" aria-label="Open HTML project details">View Details →</a>
+        </article>
+
+        <article class="project-card" aria-labelledby="jsTitle">
+          <h3 id="jsTitle"><i class="bi bi-lightning"></i> JavaScript Projects</h3>
+          <ul>
+            <li><strong>Interactive Web Components</strong> — Custom UI controls, modular JS and small state management.</li>
+            <li><strong>Form Validation & UI Logic</strong> — Client-side validation, animations and accessibility.</li>
+          </ul>
+          <a class="detail-btn" href="#js-details" aria-label="Open JS project details">View Details →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECT DETAILS (each is a separate 'page' section) -->
+    <section id="python-details" class="project-detail" aria-label="Python project details" style="margin:0 6% 40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:0 0 8px;color:var(--accent)"><i class="bi bi-cpu"></i> Python & ML Projects — Details</h3>
+          <p style="color:var(--muted)">Technical summaries, used libraries, and links to code snippets / notebooks.</p>
+        </div>
+        <div>
+          <a href="#projects" class="back-link">← Back to Projects</a>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;display:grid;gap:12px;">
+        <div style="padding:12px;border-radius:10px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)">
+          <strong>ASL Recognition</strong> — Dataset preprocessing, CNN (TensorFlow / Keras), data augmentation, trained to X% accuracy (you can replace X with your result). Deployed as a Flask inference endpoint for demo.
+        </div>
+        <div style="padding:12px;border-radius:10px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)">
+          <strong>Heart Disease Prediction</strong> — EDA, feature selection, ML models (Logistic Regression / RandomForest), cross-validation and ROC analysis. Saved model with joblib.
+        </div>
+        <div style="padding:12px;border-radius:10px;background:rgba(0,0,0,0.04);border:1px solid rgba(255,255,255,0.02)">
+          <strong>Face Detection</strong> — OpenCV Haar cascade / DNN, real-time camera capture, integration to attendance CSV export.
+        </div>
+      </div>
+    </section>
+
+    <section id="html-details" class="project-detail" aria-label="HTML/CSS details" style="margin:0 6% 40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:0 0 8px;color:var(--accent)"><i class="bi bi-layout-text-window-reverse"></i> HTML / CSS Projects — Details</h3>
+          <p style="color:var(--muted)">Responsive, accessible and modern front-end designs.</p>
+        </div>
+        <div>
+          <a href="#projects" class="back-link">← Back to Projects</a>
+        </div>
+      </div>
+
+      <ul style="margin-top:12px;color:var(--muted)">
+        <li><strong>Modern Portfolio</strong> — Built with semantic HTML, responsive CSS grid/flexbox, accessible headings and keyboard-friendly navigation.</li>
+        <li><strong>Landing Pages</strong> — Lightweight performance-first HTML/CSS, form handling, and CSS-only interactions where possible.</li>
+      </ul>
+    </section>
+
+    <section id="js-details" class="project-detail" aria-label="JavaScript details" style="margin:0 6% 40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:0 0 8px;color:var(--accent)"><i class="bi bi-lightning"></i> JavaScript Projects — Details</h3>
+          <p style="color:var(--muted)">Clean vanilla JS modules, small libraries and UI logic.</p>
+        </div>
+        <div>
+          <a href="#projects" class="back-link">← Back to Projects</a>
+        </div>
+      </div>
+
+      <ul style="margin-top:12px;color:var(--muted)">
+        <li><strong>Web Components</strong> — Custom elements for repeated UI patterns, encapsulated styles.</li>
+        <li><strong>Form Validation</strong> — Robust client-side validation with clear error messages and a11y considerations.</li>
+      </ul>
+    </section>
+
+    <!-- EDUCATION & TIMELINE -->
+    <section id="education" aria-label="Education timeline">
+      <div class="title">Education & Experience</div>
+
+      <div class="timeline" aria-hidden="false">
+        <div class="timeline-item left" role="article" aria-label="MCA">
+          <div class="meta">2024 — 2026</div>
+          <h4 style="margin:6px 0">MCA (Generative AI)</h4>
+          <p style="color:var(--muted)">Alliance University, Bangalore — SGPA 8.8 (Pursuing)</p>
+        </div>
+
+        <div class="timeline-item right" role="article" aria-label="BCA">
+          <div class="meta">2021 — 2024</div>
+          <h4 style="margin:6px 0">BCA</h4>
+          <p style="color:var(--muted)">Hindusthan College of Arts and Science — SGPA 7.6</p>
+        </div>
+
+        <div class="timeline-item left" role="article" aria-label="Internship">
+          <div class="meta">Nov 2022 — Jan 2023</div>
+          <h4 style="margin:6px 0">Software Development Intern</h4>
+          <p style="color:var(--muted)">Gateway Software Solutions, Coimbatore — Python development, automation scripts and collaborative mini-projects.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & RESUME -->
+    <section id="contact" aria-label="Contact & Resume">
+      <div class="title">Contact</div>
+
+      <div style="max-width:760px;margin:0 auto;text-align:center;color:var(--muted);">
+        <p>📍 Bangalore, India • 📞 +91 93443 71356 • 📧 <a href="mailto:esakkirajanmadasamy@gmail.com" style="color:var(--accent)">esakkirajanmadasamy@gmail.com</a></p>
+        <p style="margin-top:6px"><a target="_blank" rel="noopener" href="https://linkedin.com/in/esakkirajan" style="color:var(--accent)">LinkedIn</a> • <a target="_blank" rel="noopener" href="https://github.com/EsakkiRajan18" style="color:var(--accent)">GitHub</a></p>
+
+        <div class="resume-wrap" style="margin-top:20px">
+          <!-- Use the exact uploaded filename. Place the resume file in same folder. -->
+          <a class="resume-download" id="resumeDownload" href="ESAKKI%20RAJAN%20resume.pdf" download="ESAKKI_RAJAN_Resume.pdf">Download Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <footer role="contentinfo">
+      <small>© 2025 Esakki Rajan — Built with care</small>
+    </footer>
+  </main>
+
+  <!-- Minimal JS for theme, interactions and resume button -->
+  <script>
+    (function(){
+      const body = document.body;
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const resumeTop = document.getElementById('resumeTop');
+      const resumeDownload = document.getElementById('resumeDownload');
+
+      // Initialize theme from localStorage or default to dark
+      const saved = localStorage.getItem('theme');
+      if(saved==='light') body.classList.add('light'); else body.classList.add('dark');
+
+      function updateIcon(){
+        if(body.classList.contains('light')){
+          themeIcon.className = 'bi bi-sun-fill';
+        } else {
+          themeIcon.className = 'bi bi-moon-fill';
+        }
+      }
+      updateIcon();
+
+      themeToggle.addEventListener('click', ()=>{
+        if(body.classList.contains('light')){
+          body.classList.remove('light'); body.classList.add('dark'); localStorage.setItem('theme','dark');
+        } else {
+          body.classList.remove('dark'); body.classList.add('light'); localStorage.setItem('theme','light');
+        }
+        updateIcon();
+      });
+
+      // Top resume button scrolls to contact/resume section and focuses download
+      resumeTop.addEventListener('click', ()=>{
+        document.getElementById('contact').scrollIntoView({behavior:'smooth', block:'center'});
+        setTimeout(()=> resumeDownload.focus(), 600);
+      });
+
+      // Simple hash watcher: when user clicks "View Details", browser jumps to that section — no extra JS necessary.
+      // Accessible keyboard navigation: ensure anchor focus outline visible (browser default).
+    })();
+  </script>
 </body>
 </html>
